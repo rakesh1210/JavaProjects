@@ -1,4 +1,4 @@
-package com.rcp.test.string;
+package com.rakesh.test.string;
 
 import java.util.HashMap;
 import java.util.HashSet;
