@@ -19,7 +19,7 @@ public class MyLearningUserAppDao {
       try { 
          File file = new File("MyLearningAppUser.dat"); 
          if (!file.exists()) { 
-        	 MyLearningAppUser user = new MyLearningAppUser(1, "Rakesh", "Teacher"); 
+        	 MyLearningAppUser user = new MyLearningAppUser(1, "Rakesh", "Devloper"); 
         	 myLearningAppUserList = new ArrayList<MyLearningAppUser>(); 
         	 myLearningAppUserList.add(user); 
             saveUserList(myLearningAppUserList); 
