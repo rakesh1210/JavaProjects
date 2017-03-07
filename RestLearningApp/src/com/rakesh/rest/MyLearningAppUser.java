@@ -42,4 +42,21 @@ public class MyLearningAppUser implements Serializable {
 	   public void setProfession(String profession) { 
 	      this.profession = profession; 
 	   }   
+	   
+	   @Override 
+	   public boolean equals(Object object){ 
+	      if(object == null){ 
+	         return false; 
+	      }else if(!(object instanceof MyLearningAppUser)){ 
+	         return false; 
+	      }else { 
+	    	  MyLearningAppUser user = (MyLearningAppUser)object; 
+	         if(id == user.getId() 
+	            && name.equals(user.getName()) 
+	            && profession.equals(user.getProfession())){ 
+	               return true; 
+	         }
+	      } 
+	      return false; 
+	   }  
 	} 

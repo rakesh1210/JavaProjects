@@ -22,7 +22,7 @@ public class MyLearningUserAppDao {
         	 MyLearningAppUser user = new MyLearningAppUser(1, "Rakesh", "Devloper"); 
         	 myLearningAppUserList = new ArrayList<MyLearningAppUser>(); 
         	 myLearningAppUserList.add(user); 
-            saveUserList(myLearningAppUserList); 
+        	 saveMyLearningAppUserList(myLearningAppUserList); 
          } 
          else{ 
             FileInputStream fis = new FileInputStream(file); 
@@ -39,18 +39,72 @@ public class MyLearningUserAppDao {
    } 
 	
 	
-   private void saveUserList(List<MyLearningAppUser> userList){ 
-      try { 
-         File file = new File("MyLearningAppUser.dat"); 
-         FileOutputStream fos;  
-         fos = new FileOutputStream(file); 
-         ObjectOutputStream oos = new ObjectOutputStream(fos); 
-         oos.writeObject(userList); 
-         oos.close(); 
-      } catch (FileNotFoundException e) { 
-         e.printStackTrace(); 
-      } catch (IOException e) { 
-         e.printStackTrace(); 
-      } 
-   } 
+   public MyLearningAppUser getMyLearningAppUser(int id){ 
+	      List<MyLearningAppUser> myLearningAppUsers = getAllMyLearningAppUsers();  
+	      for(MyLearningAppUser myLearningAppUser: myLearningAppUsers){ 
+	         if(myLearningAppUser.getId() == id){ 
+	            return myLearningAppUser; 
+	         } 
+	      } 
+	      return null; 
+	   } 
+   
+	public int addMyLearningAppUser(MyLearningAppUser pUser){ 
+	      List<MyLearningAppUser> myLearningAppUsers = getAllMyLearningAppUsers(); 
+	      boolean userExists = false; 
+	      for(MyLearningAppUser myLearningAppUser: myLearningAppUsers){ 
+	         if(myLearningAppUser.getId() == pUser.getId()){ 
+	            userExists = true; 
+	            break; 
+	         } 
+	      }   
+	      if(!userExists){ 
+	    	  myLearningAppUsers.add(pUser); 
+	    	  saveMyLearningAppUserList(myLearningAppUsers); 
+	         return 1; 
+	      } 
+	      return 0; 
+	   }
+	  
+	public int updateMyLearningAppUser(MyLearningAppUser pUser){ 
+	      List<MyLearningAppUser> userList = getAllMyLearningAppUsers();  
+	      for(MyLearningAppUser user: userList){ 
+	         if(user.getId() == pUser.getId()){ 
+	            int index = userList.indexOf(user);    
+	            userList.set(index, pUser); 
+	            saveMyLearningAppUserList(userList); 
+	            return 1; 
+	         } 
+	      }   
+	      return 0; 
+	   }  
+	   
+	public int deleteMyLearningAppUser(int id){ 
+	      List<MyLearningAppUser> userList = getAllMyLearningAppUsers();  
+	      for(MyLearningAppUser user: userList){ 
+	         if(user.getId() == id){ 
+	            int index = userList.indexOf(user);    
+	            userList.remove(index); 
+	            saveMyLearningAppUserList(userList); 
+	            return 1;    
+	         } 
+	      }   
+	      return 0; 
+	   }  
+	   
+	   
+	private void saveMyLearningAppUserList(List<MyLearningAppUser> userList){ 
+		      try { 
+		         File file = new File("MyLearningAppUser.txt"); 
+		         FileOutputStream fos;  
+		         fos = new FileOutputStream(file); 
+		         ObjectOutputStream oos = new ObjectOutputStream(fos); 
+		         oos.writeObject(userList); 
+		         oos.close(); 
+		      } catch (FileNotFoundException e) { 
+		         e.printStackTrace(); 
+		      } catch (IOException e) { 
+		         e.printStackTrace(); 
+		      } 
+		   } 
 }
